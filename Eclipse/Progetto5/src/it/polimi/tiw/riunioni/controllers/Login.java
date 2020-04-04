@@ -54,7 +54,7 @@ public class Login extends HttpServlet{
 			if (user != null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("currentUser", user);
-				String path = getServletContext().getContextPath() + "/posts";
+				String path = getServletContext().getContextPath() + "/GoToHome";
 				response.sendRedirect(path);
 			}
 			else {
