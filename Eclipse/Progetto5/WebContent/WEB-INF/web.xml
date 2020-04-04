@@ -3,7 +3,7 @@
   <display-name>TIW-JDBC</display-name>
   <context-param>
     <param-name>dbUrl</param-name>
-    <param-value>jdbc:mysql://localhost:3306/dbtest</param-value>
+    <param-value>jdbc:mysql://localhost:3306/dbprogetto</param-value>
   </context-param>
   <context-param>
     <param-name>dbUser</param-name>
