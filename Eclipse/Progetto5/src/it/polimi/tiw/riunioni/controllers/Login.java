@@ -11,8 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import it.polimi.tiw.riunioni.beans.Utente;
+
 import it.polimi.tiw.riunioni.DAO.UtenteDAO;
 
 @WebServlet("/login")
@@ -39,31 +39,29 @@ public class Login extends HttpServlet{
 		}
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username");
-	    String password = request.getParameter("password");
-
-		if (username == null || password == null) {
-			response.sendError(505, "Parameters incomplete");
-			return;
-		}
-	    
-		UtenteDAO userDAO = new UtenteDAO(connection);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String usrn = request.getParameter("username");
+		String pwd = request.getParameter("password");
+		UtenteDAO usr = new UtenteDAO(connection);
+		Utente u = null;
 		try {
-			Utente user = userDAO.checkUser(username, password);
-			if (user != null) {
-				HttpSession session = request.getSession();
-				session.setAttribute("currentUser", user);
-				String path = getServletContext().getContextPath() + "/GoToHome";
-				response.sendRedirect(path);
-			}
-			else {
-				response.sendError(505, "Invalid user");
-			}
+			u = usr.checkUser(usrn, pwd);
 		} catch (SQLException e) {
-			response.sendError(500, "Database access failed");
+			
+			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "Failure in database credential checking");
+ 		}
+		String path = getServletContext().getContextPath();
+		if (u == null) {
+			path = getServletContext().getContextPath() + "/login.jsp";
+		} else {
+			request.getSession().setAttribute("user", u);
+			String target ="/GoToHomePage";
+			path = path + target;
 		}
+		response.sendRedirect(path);
 	}
+
 	
 	public void destroy() {
 		try {

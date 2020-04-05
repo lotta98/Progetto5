@@ -1,7 +1,7 @@
 package it.polimi.tiw.riunioni.DAO;
 
-import java.io.InputStream;
-import it.polimi.tiw.posts.beans.Post;
+
+
 import it.polimi.tiw.riunioni.beans.*;
 
 import java.sql.Connection;
@@ -9,8 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;;
-import java.util.TimeZone;
+
+
 import java.util.List;
 
 
@@ -35,14 +35,14 @@ public class RiunioniDAO {
 			while (result.next()) {
 				Riunione riunione = new Riunione();
 
-				riunione.setId(result.getId("id"));
+				riunione.setId(result.getInt("id"));
 				riunione.setTitolo(result.getString("titolo"));
 
-				riunione.setData(result.getData("data"));
-				riunione.setOra(result.getOra("ora"));
-
-				riunione.setMaxPart(result.getMaxPart("maxPart"));
-				riunione.setIdCreatore(result.getIdCreatore("idCreatore"));
+				riunione.setData(result.getDate("data"));
+				riunione.setOra(result.getInt("ora"));
+				riunione.setDurata(result.getInt("durata"));
+				riunione.setMaxPart(result.getInt("maxPart"));
+				riunione.setIdCreatore(result.getInt("idCreatore"));
 
 				riunioni.add(riunione);
 			}
@@ -76,14 +76,14 @@ public class RiunioniDAO {
 			while (result.next()) {
 				Riunione riunione = new Riunione();
 
-				riunione.setId(result.getId("id"));
+				riunione.setId(result.getInt("id"));
 				riunione.setTitolo(result.getString("titolo"));
 
-				riunione.setData(result.getData("data"));
-				riunione.setOra(result.getOra("ora"));
-
-				riunione.setMaxPart(result.getMaxPart("maxPart"));
-				riunione.setIdCreatore(result.getIdCreatore("idCreatore"));
+				riunione.setData(result.getDate("data"));
+				riunione.setOra(result.getInt("ora"));
+				riunione.setDurata(result.getInt("durata"));
+				riunione.setMaxPart(result.getInt("maxPart"));
+				riunione.setIdCreatore(result.getInt("idCreatore"));
 
 				riunioni.add(riunione);
 			}

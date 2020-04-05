@@ -3,4 +3,4 @@
 	pageEncoding="ISO-8859-1"%>
 
 <p><c:out value="${currentUser.username}"></c:out></p>
-<p><a href="<c:url value="logout"/>">Log out</a></p>
+<p><a href="<c:url value="/Logout"/>">Log out</a></p>

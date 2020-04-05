@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import it.polimi.tiw.riunioni.beans.Utente;
 
 public class UtenteDAO {
@@ -12,7 +13,6 @@ public class UtenteDAO {
 	public UtenteDAO(Connection connection) {
 		this.con = connection;
 	}
-
 	public Utente checkUser(String username, String password) throws SQLException {
 		Utente user = null;
 		String query = "SELECT * FROM utente WHERE username = ? and password = ?";
@@ -27,8 +27,6 @@ public class UtenteDAO {
 			while (result.next()) {
 				user = new Utente();
 				user.setId(result.getInt("id"));
-				user.setNome(result.getString("nome"));
-				user.setCognome(result.getString("cognome"));
 				user.setUser(result.getString("username"));
 			}
 		} catch (SQLException e) {
@@ -48,5 +46,24 @@ public class UtenteDAO {
 			}
 		}		
 		return user;
-	}
+	}/*
+	public Utente checkUser(String usrn, String pwd) throws SQLException {
+		String query = "SELECT * FROM utente  WHERE username = ? AND password =?";
+		try (PreparedStatement pstatement = con.prepareStatement(query);) {
+			pstatement.setString(1, usrn);
+			pstatement.setString(2, pwd);
+			try (ResultSet result = pstatement.executeQuery();) {
+				if (!result.isBeforeFirst()) // no results, credential check failed
+					return null;
+				else {
+					result.next();
+					Utente user = new Utente();
+					user.setId(result.getInt("id"));
+					user.setUser(result.getString("username"));
+					return user;
+				}
+			}
+		}
+	}*/
+	
 }

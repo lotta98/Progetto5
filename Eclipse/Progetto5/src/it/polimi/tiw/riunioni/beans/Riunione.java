@@ -1,14 +1,16 @@
 package it.polimi.tiw.riunioni.beans;
 
 import java.util.Date;
-import java.util.SimpleTimeZone;
+
 public class Riunione {
 	private int id;
 	private String titolo;
 	private Date data;
-	private SimpleTimeZone ora;
+	private int ora;
+	private int durata;
 	private int maxPart;
 	private int idCreatore;
+	
 	public int getId() {
 		return id;
 	}
@@ -27,10 +29,16 @@ public class Riunione {
 	public void setData(Date data) {
 		this.data = data;
 	}
-	public SimpleTimeZone getOra() {
+	public int getDurata() {
+		return durata;
+	}
+	public void setDurata(int durata) {
+		this.durata= durata;
+	}
+	public int getOra() {
 		return ora;
 	}
-	public void setOra(SimpleTimeZone ora) {
+	public void setOra(int ora) {
 		this.ora= ora;
 	}
 	public int getMaxPart() {

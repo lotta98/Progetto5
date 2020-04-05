@@ -9,6 +9,7 @@
 <title> Progetto 5</title>
 </head>
 <body>
+	<jsp:include page="WEB-INF/header.jsp" />
 	<h1>Welcome to Login</h1>
 	<c:choose>
 		<c:when test="${empty currentUser}">
@@ -22,10 +23,8 @@
     				<button type="submit">Login</button>
   			</form>			
 		</c:when>
-		<c:otherwise>
-			<jsp:include page="WEB-INF/header.jsp" />
-			<p><a href="<c:url value="posts"/>">Posts</a></p>			
-		</c:otherwise>
+				
+		
 	</c:choose>
 </body>
 </html>
