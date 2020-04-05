@@ -7,7 +7,7 @@ public class RiunionePartecipanti {
 	public int getIdRiunione() {
 		return idRiunione;
 	}
-	public void setId(int idR) {
+	public void setIdRiunione(int idR) {
 		this.idRiunione = idR;
 	}
 	public int getIdPart() {

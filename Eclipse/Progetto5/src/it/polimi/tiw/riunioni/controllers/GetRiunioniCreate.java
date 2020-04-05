@@ -51,7 +51,7 @@ public class GetRiunioniCreate extends HttpServlet {
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		HttpSession session = request.getSession();
 		RiunioniDAO rDAO = new RiunioniDAO(connection);
 		List<Riunione> riunioni;

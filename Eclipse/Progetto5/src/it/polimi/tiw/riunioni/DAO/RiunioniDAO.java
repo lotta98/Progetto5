@@ -22,53 +22,13 @@ public class RiunioniDAO {
 	}
 
 
-	public List<Riunione> findRiunioniByUser(int idUtente) throws SQLException {
-
-		List<Riunione> riunioni = new ArrayList<Riunione>();
-		String query = "SELECT * FROM riunione_partecipanti WHERE idPart = ?";
-		ResultSet result = null;
-		PreparedStatement pstatement = null;
-		try {
-			pstatement = con.prepareStatement(query);
-			pstatement.setInt(1, idUtente);
-			result = pstatement.executeQuery();
-			while (result.next()) {
-				Riunione riunione = new Riunione();
-
-				riunione.setId(result.getInt("id"));
-				riunione.setTitolo(result.getString("titolo"));
-
-				riunione.setData(result.getDate("data"));
-				riunione.setOra(result.getInt("ora"));
-				riunione.setDurata(result.getInt("durata"));
-				riunione.setMaxPart(result.getInt("maxPart"));
-				riunione.setIdCreatore(result.getInt("idCreatore"));
-
-				riunioni.add(riunione);
-			}
-		}  catch (SQLException e) {
-			throw new SQLException(e);
-		}finally {
-			try {
-				result.close();
-			} catch (Exception e1) {
-				throw new SQLException("Cannot close result");
-			}
-			try {
-				pstatement.close();
-			} catch (Exception e1) {
-				throw new SQLException("Cannot close statement");
-			}
-		}
-		return riunioni;
-	}
-
 	public List<Riunione> findRiunioniCreate(int idUtente) throws SQLException {
 
-		List<Riunione> riunioni = new ArrayList<Riunione>();
-		String query = "SELECT * FROM riunione WHERE idCreatore = ?";
+		List<Riunione> riunioniCreate = new ArrayList<Riunione>();
+		String query = "SELECT * FROM riunione WHERE creatore = ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
+		
 		try {
 			pstatement = con.prepareStatement(query);
 			pstatement.setInt(1, idUtente);
@@ -83,9 +43,10 @@ public class RiunioniDAO {
 				riunione.setOra(result.getInt("ora"));
 				riunione.setDurata(result.getInt("durata"));
 				riunione.setMaxPart(result.getInt("maxPart"));
-				riunione.setIdCreatore(result.getInt("idCreatore"));
+				riunione.setIdCreatore(result.getInt("creatore"));
 
-				riunioni.add(riunione);
+				riunioniCreate.add(riunione);
+				
 			}
 
 		} catch (SQLException e) {
@@ -103,7 +64,7 @@ public class RiunioniDAO {
 				throw new SQLException("Cannot close statement");
 			}
 		}
-		return riunioni; 
+		return riunioniCreate; 
 	}
 }
 
