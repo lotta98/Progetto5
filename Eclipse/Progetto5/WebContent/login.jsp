@@ -14,7 +14,7 @@
 	<c:choose>
 		<c:when test="${empty currentUser}">
 			<p>Log in</p>
-			<c:url value="/login" var="loginUrl"/>			
+			<c:url value="/Login" var="loginUrl"/>			
 			<form method="post" action="${loginUrl}">
     				<label for="username"><b>Username</b></label>
     				<input type="text" placeholder="Enter Username" name="username" required/>

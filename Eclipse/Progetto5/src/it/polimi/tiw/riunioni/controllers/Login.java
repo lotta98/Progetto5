@@ -15,7 +15,7 @@ import it.polimi.tiw.riunioni.beans.Utente;
 
 import it.polimi.tiw.riunioni.DAO.UtenteDAO;
 
-@WebServlet("/login")
+@WebServlet("/Login")
 public class Login extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private Connection connection = null;
