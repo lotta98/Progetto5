@@ -16,30 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `utente`
+-- Table structure for table `riunione`
 --
 
-DROP TABLE IF EXISTS `utente`;
+DROP TABLE IF EXISTS `riunione`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `utente` (
+CREATE TABLE `riunione` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `nome` varchar(45) NOT NULL,
-  `cognome` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `data` date NOT NULL,
+  `titolo` varchar(45) NOT NULL,
+  `ora` int(11) NOT NULL,
+  `durata` int(11) NOT NULL,
+  `maxPart` int(11) NOT NULL,
+  `creatore` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_creatore` (`creatore`),
+  CONSTRAINT `id_creatore` FOREIGN KEY (`creatore`) REFERENCES `utente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `utente`
+-- Dumping data for table `riunione`
 --
 
-LOCK TABLES `utente` WRITE;
-/*!40000 ALTER TABLE `utente` DISABLE KEYS */;
-INSERT INTO `utente` VALUES (1,'emilio','delorenzis','Emilio','De Lorenzis'),(2,'utente','utente','utente','utente');
-/*!40000 ALTER TABLE `utente` ENABLE KEYS */;
+LOCK TABLES `riunione` WRITE;
+/*!40000 ALTER TABLE `riunione` DISABLE KEYS */;
+INSERT INTO `riunione` VALUES (1,'2020-04-10','Riunione1',21,1,5,1),(2,'2020-05-10','Riunione2',18,2,5,1),(3,'2020-05-03','Riunione3',18,2,5,2);
+/*!40000 ALTER TABLE `riunione` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-04 18:20:05
+-- Dump completed on 2020-04-06 14:36:29

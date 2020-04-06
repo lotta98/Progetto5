@@ -16,29 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `riunionepartecipanti`
+-- Table structure for table `utente`
 --
 
-DROP TABLE IF EXISTS `riunionepartecipanti`;
+DROP TABLE IF EXISTS `utente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `riunionepartecipanti` (
-  `idRiunione` int(11) NOT NULL,
-  `idPart` int(11) NOT NULL,
-  PRIMARY KEY (`idRiunione`,`idPart`),
-  KEY `idPart` (`idPart`),
-  CONSTRAINT `riunionepartecipanti_ibfk_1` FOREIGN KEY (`idRiunione`) REFERENCES `riunione` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `riunionepartecipanti_ibfk_2` FOREIGN KEY (`idPart`) REFERENCES `utente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `utente` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `nome` varchar(45) NOT NULL,
+  `cognome` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `riunionepartecipanti`
+-- Dumping data for table `utente`
 --
 
-LOCK TABLES `riunionepartecipanti` WRITE;
-/*!40000 ALTER TABLE `riunionepartecipanti` DISABLE KEYS */;
-/*!40000 ALTER TABLE `riunionepartecipanti` ENABLE KEYS */;
+LOCK TABLES `utente` WRITE;
+/*!40000 ALTER TABLE `utente` DISABLE KEYS */;
+INSERT INTO `utente` VALUES (1,'emilio','delorenzis','Emilio','De Lorenzis'),(2,'utente','utente','utente','utente');
+/*!40000 ALTER TABLE `utente` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-04 18:20:05
+-- Dump completed on 2020-04-06 14:36:30
