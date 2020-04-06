@@ -85,16 +85,21 @@ public class GoToAnagrPage extends HttpServlet {
 		HttpSession s = request.getSession();
 		int idUtente = ((Utente) s.getAttribute("user")).getId();
 		Riunione riunione = new Riunione();
-
-		riunione.setTitolo(request.getParameter("titolo"));
-
-		riunione.setData((Date) request.getAttribute("data"));
-		riunione.setOra((int) request.getAttribute("ora"));
-		riunione.setDurata((int) request.getAttribute("durata"));
-		riunione.setMaxPart(4);
-		riunione.setIdCreatore(idUtente);
-		request.setAttribute("RiunioneDaCreare", riunione);
-		doGet(request, response);
+		try {
+			riunione.setTitolo(request.getParameter("titolo"));
+			riunione.setData((Date) request.getAttribute("data"));
+			riunione.setOra((int) request.getAttribute("ora"));
+			riunione.setDurata((int) request.getAttribute("durata"));
+			riunione.setMaxPart(4);
+			riunione.setIdCreatore(idUtente);
+			request.setAttribute("RiunioneDaCreare", riunione);
+			doGet(request, response);
+		}catch(Exception e){
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing assignment data");
+			
+		}
+		
+		
 	}
 	public void destroy() {
 		try {
