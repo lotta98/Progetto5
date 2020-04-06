@@ -1,5 +1,7 @@
 package it.polimi.tiw.riunioni.DAO;
 
+import it.polimi.tiw.riunioni.beans.*;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -100,5 +102,34 @@ public class RiunioniPartecipanteDAO {
 		}
 		return invitiRiunioni; 
 	}
+	
+	public void addRiunionePartecipante(int id, List <Utente> utenti) throws SQLException {
+		String query = "INSERT into riunione (id, utente)   VALUES(?, ?)";
+
+		int code = 0;
+		PreparedStatement pstatement = null;
+		
+		try {
+			
+			for(int j=0;j<utenti.size();++j) {
+				
+				pstatement = con.prepareStatement(query);
+				pstatement.setInt(1, id);
+				pstatement.setInt(2, utenti.get(j).getId());
+				code = pstatement.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			throw new SQLException(e);
+		} finally {
+			try {
+				pstatement.close();
+			} catch (Exception e1) {
+
+			}
+		}
+	}
+	
+	
 }
 

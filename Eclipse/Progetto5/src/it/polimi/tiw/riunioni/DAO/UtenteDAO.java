@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.tiw.riunioni.beans.Utente;
@@ -69,6 +70,40 @@ public class UtenteDAO {
 	public List<Utente> findUtenti(int idUtente) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public List<Utente> utentiRegistrati() throws SQLException {
+		List <Utente> utenti = new ArrayList<Utente>();	
+		String query = "SELECT * FROM utente";
+		ResultSet result = null;
+		PreparedStatement pstatement = null;
+
+		try {
+			pstatement = con.prepareStatement(query);
+			result = pstatement.executeQuery();
+			while (result.next()) {
+				Utente ut = new Utente();
+				ut.setId(result.getInt("id"));
+				ut.setUser(result.getString("username"));
+				utenti.add(ut);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException(e);
+
+		} finally {
+			try {
+				result.close();
+			} catch (Exception e1) {
+				throw new SQLException(e1);
+			}
+			try {
+				pstatement.close();
+			} catch (Exception e2) {
+				throw new SQLException(e2);
+			}
+		}		
+		return utenti;
 	}
 	
 }

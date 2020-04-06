@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 import java.util.List;
@@ -66,6 +67,36 @@ public class RiunioniDAO {
 		}
 		return riunioniCreate; 
 	}
+	
+	
+public void addRiunione(int id, String titolo, Date data, int ora, int durata, int maxPart, int idCreatore) throws SQLException {
+		
+		String query = "INSERT into riunione (id, titolo, data, ora, durata, maxPart, idCreatore)   VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		int code = 0;
+		PreparedStatement pstatement = null;
+		try {
+			pstatement = con.prepareStatement(query);
+			pstatement.setInt(1, id);
+			pstatement.setString(2, titolo);
+			pstatement.setObject(3, data); //
+			pstatement.setInt(4, ora);
+			pstatement.setInt(5, durata);
+			pstatement.setInt(6, maxPart);
+			pstatement.setInt(7, idCreatore);
+			
+			code = pstatement.executeUpdate();
+		} catch (SQLException e) {
+			throw new SQLException(e);
+		} finally {
+			try {
+				pstatement.close();
+			} catch (Exception e1) {
+
+			}
+		}
+	}
+	
+	
 }
 
 
