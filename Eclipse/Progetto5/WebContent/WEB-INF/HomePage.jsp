@@ -74,7 +74,20 @@
 		<c:otherwise>No topics to display.
 		</c:otherwise>
 	</c:choose>
-	<a href="<c:url value = "GoToAnagrPage"/>">Crea Riunione</a>
+	<p>Inserisci i dati per creare una nuova Riunione</p>
+			<c:url value="/GoToAnagrPage" var="url"/>			
+			<form method="post" action="${url}">
+    				<label for="titolo"><b>Titolo</b></label>
+    				<input type="text" placeholder="Inserisci Titolo" name="titolo" required/>
+    				<br>
+    				<label for="data">Data:</label>
+  					<input type="date" id="data" name="data">
+    				<label for="ora"><b>Ora</b></label>
+    				<input type="text" placeholder="Inserisci Titolo" name="ora" required/>
+    				<br>
+    				<button type="submit">Crea Riunione</button>
+  			</form>	
+	
 
 </body>
 </html>

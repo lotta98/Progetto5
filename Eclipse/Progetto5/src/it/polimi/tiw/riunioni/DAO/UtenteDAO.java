@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import it.polimi.tiw.riunioni.beans.Utente;
 
@@ -65,5 +66,9 @@ public class UtenteDAO {
 			}
 		}
 	}*/
+	public List<Utente> findUtenti(int idUtente) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
