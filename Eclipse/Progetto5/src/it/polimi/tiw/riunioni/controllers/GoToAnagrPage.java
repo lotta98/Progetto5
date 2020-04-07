@@ -64,9 +64,9 @@ public class GoToAnagrPage extends HttpServlet {
 		UtenteDAO uDAO = new UtenteDAO(connection);
 		List<Utente> utenti;
 		int idUtente = ((Utente) s.getAttribute("user")).getId();
-		/*
+		
 		try {
-			utenti= uDAO.findUtenti(idUtente);
+			utenti= uDAO.utentiRegistrati(idUtente);
 			request.setAttribute("utenti", utenti);
 			String path = "/WEB-INF/PaginaAnagrafica.jsp";
 			
@@ -75,7 +75,7 @@ public class GoToAnagrPage extends HttpServlet {
 			
 		} catch (SQLException e) {
 			response.sendError(500, "00Database access failed");
-		}*/
+		}
 		
 	}
 
