@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Date;
+
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -61,6 +61,7 @@ public class GoToAnagrPage extends HttpServlet {
 			response.sendRedirect(loginpath);
 			return;
 		} 
+		
 		UtenteDAO uDAO = new UtenteDAO(connection);
 		List<Utente> utenti;
 		int idUtente = ((Utente) s.getAttribute("user")).getId();
@@ -87,7 +88,8 @@ public class GoToAnagrPage extends HttpServlet {
 		Riunione riunione = new Riunione();
 		try {
 			riunione.setTitolo(request.getParameter("titolo"));
-			riunione.setData((Date) request.getAttribute("data"));
+			riunione.setMese((int) request.getAttribute("mese"));
+			riunione.setGiorno((int) request.getAttribute("giorno"));
 			riunione.setOra((int) request.getAttribute("ora"));
 			riunione.setDurata((int) request.getAttribute("durata"));
 			riunione.setMaxPart(4);

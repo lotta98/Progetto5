@@ -1,11 +1,12 @@
 package it.polimi.tiw.riunioni.beans;
 
-import java.util.Date;
 
 public class Riunione {
 	private int id;
 	private String titolo;
-	private Date data;
+	private int anno;
+	private int mese;
+	private int giorno;
 	private int ora;
 	private int durata;
 	private int maxPart;
@@ -23,11 +24,23 @@ public class Riunione {
 	public void setTitolo(String titolo) {
 		this.titolo= titolo;
 	}
-	public Date getData() {
-		return data;
+	public int getAnno() {
+		return anno;
 	}
-	public void setData(Date data) {
-		this.data = data;
+	public void setAnno(int anno) {
+		this.anno = anno;
+	}
+	public int getMese() {
+		return mese;
+	}
+	public void setMese(int mese) {
+		this.mese = mese;
+	}
+	public int getGiorno() {
+		return giorno;
+	}
+	public void setGiorno(int giorno) {
+		this.giorno = giorno;
 	}
 	public int getDurata() {
 		return durata;
