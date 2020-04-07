@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -77,13 +78,13 @@ public class GoToHomePage extends HttpServlet {
 		
 		RiunioniPartecipanteDAO rpDAO = new RiunioniPartecipanteDAO(connection);
 		
-		List<RiunionePartecipanti> rp;
-		List<Riunione> invitiRiunioni;
+		List<RiunionePartecipanti> rp = new ArrayList<RiunionePartecipanti>();
+		List<Riunione> invitiRiunioni = new ArrayList<Riunione>();
 		try {
 			rp= rpDAO.findRiunioniPartByUser(idUtente);
-			System.out.println("OK1");
+			
 			invitiRiunioni= rDAO.findRiunioniByUser(rp);
-			System.out.println("OK2");
+			
 			request.setAttribute("invitiRiunioni", invitiRiunioni);
 			String path = "/WEB-INF/HomePage.jsp";
 			

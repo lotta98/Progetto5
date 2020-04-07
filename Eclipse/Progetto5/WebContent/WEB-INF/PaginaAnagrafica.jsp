@@ -8,13 +8,15 @@
 <title>Pagina Anagrafica</title>
 </head>
 <body>
+<jsp:include page="header.jsp" />
 <h2>Invita Utenti</h2>
 	<c:choose>
 	<c:when test="${utenti.size()>0}">
-		<form method="post" action="/CheckPartecipanti" >
+	<c:url value="/CheckPartecipanti" var="url"/>
+		<form method="post" action="${url}" >
 			
 			<c:forEach var="utente" items="${utenti}" >
-				<input type ="checkbox" value = "${utente.id}" name="${utente.id}"></input>
+				<input type ="checkbox" value = "${utente.getId()}" name="checkbox" ></input>
 				<c:out value="${utente.getNome()}" />
 				<c:out value="${utente.getCognome()}" />
 				<br>

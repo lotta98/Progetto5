@@ -1,6 +1,6 @@
 package it.polimi.tiw.riunioni.DAO;
 
-import it.polimi.tiw.riunioni.beans.*;
+import it.polimi.tiw.riunioni.beans.RiunionePartecipanti;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.polimi.tiw.riunioni.beans.Riunione;
-import it.polimi.tiw.riunioni.beans.RiunionePartecipanti;
+
+
 
 public class RiunioniPartecipanteDAO {
 	private Connection con;
@@ -53,32 +53,28 @@ public class RiunioniPartecipanteDAO {
 		}
 		return riunioni;
 	}
-	
-	
-	
-	public void addRiunionePartecipante(int id, List <Utente> utenti) throws SQLException {
-		String query = "INSERT INTO riunione (idRiunione, idPart) VALUES(?, ?)";
 
-		int code = 0;
-		PreparedStatement pstatement = null;
+	
+	public void addRiunionePartecipante(int id, int idU[]) throws SQLException {
+		String query = "INSERT INTO riunionepartecipante (idRiunione, idPart) VALUES(?, ?)";
+		System.out.println(id);
 		
-		try {
-			
-			for(int j=0;j<utenti.size();++j) {
-				
-				pstatement = con.prepareStatement(query);
-				pstatement.setInt(1, id);
-				pstatement.setInt(2, utenti.get(j).getId());
-				code = pstatement.executeUpdate();
-			}
-			
-		} catch (SQLException e) {
-			throw new SQLException(e);
-		} finally {
+		PreparedStatement pstatement = null;
+		for(int j=0;j<idU.length;j++) {
 			try {
-				pstatement.close();
-			} catch (Exception e1) {
-
+					pstatement = con.prepareStatement(query);
+					pstatement.setInt(1, id);
+					pstatement.setInt(2, idU[j]);
+					pstatement.executeUpdate();
+				
+			} catch (SQLException e) {
+				throw new SQLException(e);
+			} finally {
+				try {
+					pstatement.close();
+				} catch (Exception e1) {
+	
+				}
 			}
 		}
 	}

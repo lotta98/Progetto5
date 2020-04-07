@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 
 import java.util.List;
@@ -74,15 +74,16 @@ public class RiunioniDAO {
 		String query = "SELECT * FROM riunione WHERE id = ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
+		for(int j=0;j<r.size();j++) {
 		try {
-			for(int j=0;j<r.size();++j) {
+			
 				
 				pstatement = con.prepareStatement(query);
 				
 				pstatement.setInt(1, r.get(j).getIdRiunione());
 				
 				result = pstatement.executeQuery();
-				
+			
 				
 				while (result.next()) {
 					Riunione r1 = new Riunione();
@@ -98,9 +99,10 @@ public class RiunioniDAO {
 					invitiRiunioni.add(r1);
 				}
 				
-			
+				
 
-			}
+			
+			
 
 		} catch (SQLException e) {
 			throw new SQLException(e);
@@ -117,28 +119,31 @@ public class RiunioniDAO {
 				throw new SQLException("Cannot close statement");
 			}
 		}
+		}
 		return invitiRiunioni; 
 	}
 	
 	
+	
 public void addRiunione(Riunione r) throws SQLException {
 		
-		String query = "INSERT into riunione (titolo, anno, mese, giorno, ora, durata, maxPart, idCreatore)   VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-		int code = 0;
+		String query = "INSERT into riunione (id, titolo, anno, mese, giorno, ora, durata, maxPart, creatore)   VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
 		PreparedStatement pstatement = null;
 		try {
 			pstatement = con.prepareStatement(query);
-			pstatement.setString(1, r.getTitolo());
-			pstatement.setInt(2, r.getAnno()); 
-			pstatement.setInt(3, r.getMese()); 
+			pstatement.setInt(1, r.getId()); 
+			pstatement.setString(2, r.getTitolo());
+			pstatement.setInt(3, r.getAnno()); 
+			pstatement.setInt(4, r.getMese()); 
+			pstatement.setInt(5, r.getGiorno()); 
+			pstatement.setInt(6, r.getOra());
+			pstatement.setInt(7, r.getDurata());
+			pstatement.setInt(8, r.getMaxPart());
+			pstatement.setInt(9, r.getIdCreatore());
 			
-			pstatement.setInt(4, r.getGiorno()); 
-			pstatement.setInt(5, r.getOra());
-			pstatement.setInt(6, r.getDurata());
-			pstatement.setInt(7, r.getMaxPart());
-			pstatement.setInt(8, r.getIdCreatore());
-			
-			code = pstatement.executeUpdate();
+			pstatement.executeUpdate();
+
 		} catch (SQLException e) {
 			throw new SQLException(e);
 		} finally {
@@ -149,6 +154,36 @@ public void addRiunione(Riunione r) throws SQLException {
 			}
 		}
 	}
+public int getMaxId() throws SQLException {
+	String query = "SELECT id FROM riunione WHERE id = (SELECT max(id) FROM riunione)";
+	ResultSet result=null;
+	int id=0;
+	PreparedStatement pstatement = null;
+	try {
+		pstatement = con.prepareStatement(query);
+		result = pstatement.executeQuery();
+		while(result.next())
+			id=result.getInt("id");
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+		throw new SQLException(e);
+
+	} finally {
+		try {
+			result.close();
+		} catch (Exception e1) {
+			throw new SQLException(e1);
+		}
+		try {
+			pstatement.close();
+		} catch (Exception e2) {
+			throw new SQLException(e2);
+		}
+	}		
+	return id;
+}
+
 	
 	
 }

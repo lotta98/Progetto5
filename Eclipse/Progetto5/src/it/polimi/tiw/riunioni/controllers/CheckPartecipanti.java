@@ -46,42 +46,69 @@ public class CheckPartecipanti extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/*
-	
+		String loginpath = getServletContext().getContextPath() + "/login.jsp";
+		HttpSession s = request.getSession();
+		if (s.isNew() || s.getAttribute("user") == null) {
+			response.sendRedirect(loginpath);
+			return;
+		} 
+		doPost(request,response);
+
+		}
 		
-			HttpSession session = request.getSession();
-			if(session.isNew())
-			session.setAttribute("counter",1);
-			else 
-			{ int toAdd= (int)session.getAttribute("counter")+1;
-			session.setAttribute("counter",toAdd); 
+		protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+				throws ServletException, IOException {
+			String[] idS = request.getParameterValues("checkbox");
+			int part=idS.length;
+			int idPart[]=new int[part];
+			request.setAttribute("Selezionati", idS);
+		
+			
+			for(int i=0;i<idS.length;i++) {
+				System.out.println(idS[i]);
+				System.out.println(Integer.parseInt(idS[i]));
+				idPart[i]=Integer.parseInt(idS[i]);
+				
 			}
 			
 			
-		
-		if (/*numeroutenti > ((Riunione) request.getAttribute("RiunioneDaCreare")).getMaxPart() && counter <=3) {
 			
-			String pathhome = getServletContext().getContextPath() + "/homepage.jsp";
-		response.sendRedirect(pathhome);
-		return ;
-		} else if (/*numeroutenti > request.getAttribute(RiunioneDaCreare).getMaxPart() && counter >3) {
-			String pathend = getServletContext().getContextPath() + "/PaginaCancellazione.jsp";
-			response.sendRedirect(pathend);
-			return;
-		} else {
+			if(part>3) {
+				if((boolean) request.getAttribute("cont")) {
+					
+					int cont=(int) request.getAttribute("cont");
+					if(cont==2) {
+						String pathend = getServletContext().getContextPath() + "/PaginaCancellazione.jsp";
+						response.sendRedirect(pathend);
+					}
+					request.setAttribute("cont", cont+1);
+					request.setAttribute("eccessivi", part-3);
+					response.sendRedirect("/GoToAnagrPage");
+				}
+					
+			}
+			else {
+				System.out.println("OKCP1");
+				RiunioniDAO rDAO=new RiunioniDAO(connection);
+				RiunioniPartecipanteDAO rpDAO=new RiunioniPartecipanteDAO(connection);
+				try {
+					System.out.println("OKCP2");
+					Riunione r=(Riunione) request.getSession().getAttribute("RiunioneDaCreare");
+					rDAO.addRiunione(r);
+					System.out.println("OKCP3"+ r.getId());
+					rpDAO.addRiunionePartecipante(r.getId(), idPart);
+					System.out.println("OKCP4");
+					String path=getServletContext().getContextPath() + "/GoToHomePage";
+					response.sendRedirect(path);
+					
+				} catch (SQLException e) {
+					response.sendError(500, "00Database access failed");
+				}
+				
+			}
 			
-		   addRiunione(request);
-			addRiunionePartecipanti(request.getAttribute(RiunioneDaCreare).getId(),request);
-			
-			
-			response.sendRedirect("/GotoAnagrPage");
-			*/
-		}
-		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			String[] idS = request.getParameterValues("checkbox");
-			int[] id = null;
-			for(int i=0;i<idS.length;i++)
-				id[i]=Integer.parseInt(idS[i]);
+				
+				
 			
 		}
 		

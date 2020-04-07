@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import it.polimi.tiw.riunioni.DAO.RiunioniDAO;
 import it.polimi.tiw.riunioni.DAO.UtenteDAO;
 import it.polimi.tiw.riunioni.beans.Riunione;
 import it.polimi.tiw.riunioni.beans.Utente;
@@ -54,7 +55,7 @@ public class GoToAnagrPage extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		System.out.println("OK4");
+	
 		String loginpath = getServletContext().getContextPath() + "/login.jsp";
 		HttpSession s = request.getSession();
 		if (s.isNew() || s.getAttribute("user") == null) {
@@ -69,11 +70,11 @@ public class GoToAnagrPage extends HttpServlet {
 		try {
 			
 			utenti= uDAO.utentiRegistrati(idUtente);
-			System.out.println("OK5");
+			
 			request.setAttribute("utenti", utenti);
 			String path = "/WEB-INF/PaginaAnagrafica.jsp";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-			System.out.println("OK6");
+			
 			dispatcher.forward(request, response);
 			
 			
@@ -89,13 +90,22 @@ public class GoToAnagrPage extends HttpServlet {
 		System.out.println("OK1");
 		HttpSession s = request.getSession();
 		int idUtente = ((Utente) s.getAttribute("user")).getId();
-		
+		int ultimoId = 0;
 		
 		Riunione riunione = new Riunione();
+		RiunioniDAO u=new RiunioniDAO(connection);
+		try {
+			ultimoId=u.getMaxId();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("ultimo id="+ultimoId);
 		int m=Integer.parseInt(request.getParameter("mese"));
 		int g=Integer.parseInt(request.getParameter("giorno"));
 		int o=Integer.parseInt(request.getParameter("ora"));
 		int d=Integer.parseInt(request.getParameter("durata"));
+		riunione.setId(ultimoId+1);
 		riunione.setTitolo(request.getParameter("titolo"));
 		riunione.setAnno(2020);
 		riunione.setMese(m);
@@ -104,9 +114,9 @@ public class GoToAnagrPage extends HttpServlet {
 		riunione.setDurata(d);
 		riunione.setMaxPart(4);
 		riunione.setIdCreatore(idUtente);
-		System.out.println("OK2");
-		request.setAttribute("RiunioneDaCreare", riunione);
-		System.out.println("OK3");
+		
+		request.getSession().setAttribute("RiunioneDaCreare", riunione);
+		
 		doGet(request, response);
 		
 		
