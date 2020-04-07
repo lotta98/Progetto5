@@ -69,20 +69,19 @@ public class RiunioniDAO {
 	}
 	
 	
-public void addRiunione(int id, String titolo, Date data, int ora, int durata, int maxPart, int idCreatore) throws SQLException {
+public void addRiunione(Riunione r) throws SQLException {
 		
-		String query = "INSERT into riunione (id, titolo, data, ora, durata, maxPart, idCreatore)   VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT into riunione (titolo, data, ora, durata, maxPart, idCreatore)   VALUES(?, ?, ?, ?, ?, ?)";
 		int code = 0;
 		PreparedStatement pstatement = null;
 		try {
 			pstatement = con.prepareStatement(query);
-			pstatement.setInt(1, id);
-			pstatement.setString(2, titolo);
-			pstatement.setObject(3, data); //
-			pstatement.setInt(4, ora);
-			pstatement.setInt(5, durata);
-			pstatement.setInt(6, maxPart);
-			pstatement.setInt(7, idCreatore);
+			pstatement.setString(1, r.getTitolo());
+			pstatement.setObject(2, r.getData()); //
+			pstatement.setInt(3, r.getOra());
+			pstatement.setInt(4, r.getDurata());
+			pstatement.setInt(5, r.getMaxPart());
+			pstatement.setInt(6, r.getIdCreatore());
 			
 			code = pstatement.executeUpdate();
 		} catch (SQLException e) {
