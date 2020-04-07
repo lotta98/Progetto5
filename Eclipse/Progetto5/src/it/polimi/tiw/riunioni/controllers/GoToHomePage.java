@@ -81,7 +81,9 @@ public class GoToHomePage extends HttpServlet {
 		List<Riunione> invitiRiunioni;
 		try {
 			rp= rpDAO.findRiunioniPartByUser(idUtente);
+			System.out.println("OK1");
 			invitiRiunioni= rDAO.findRiunioniByUser(rp);
+			System.out.println("OK2");
 			request.setAttribute("invitiRiunioni", invitiRiunioni);
 			String path = "/WEB-INF/HomePage.jsp";
 			
