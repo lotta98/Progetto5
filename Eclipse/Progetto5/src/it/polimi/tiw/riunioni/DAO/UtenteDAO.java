@@ -72,9 +72,9 @@ public class UtenteDAO {
 		return null;
 	}
 	
-	public List<Utente> utentiRegistrati() throws SQLException {
+	public List<Utente> utentiRegistrati(int idCreatore) throws SQLException {
 		List <Utente> utenti = new ArrayList<Utente>();	
-		String query = "SELECT * FROM utente";
+		String query = "SELECT * FROM utente WHERE idPartecipante <> idCreatore";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 
