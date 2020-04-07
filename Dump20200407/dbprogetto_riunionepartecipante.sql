@@ -16,30 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `riunionepartecipanti`
+-- Table structure for table `riunionepartecipante`
 --
 
-DROP TABLE IF EXISTS `riunionepartecipanti`;
+DROP TABLE IF EXISTS `riunionepartecipante`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `riunionepartecipanti` (
+CREATE TABLE `riunionepartecipante` (
   `idRiunione` int(11) NOT NULL,
   `idPart` int(11) NOT NULL,
   PRIMARY KEY (`idRiunione`,`idPart`),
   KEY `idPart` (`idPart`),
-  CONSTRAINT `riunionepartecipanti_ibfk_1` FOREIGN KEY (`idRiunione`) REFERENCES `riunione` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `riunionepartecipanti_ibfk_2` FOREIGN KEY (`idPart`) REFERENCES `utente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `riunionepartecipante_ibfk_1` FOREIGN KEY (`idRiunione`) REFERENCES `riunione` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `riunionepartecipante_ibfk_2` FOREIGN KEY (`idPart`) REFERENCES `utente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `riunionepartecipanti`
+-- Dumping data for table `riunionepartecipante`
 --
 
-LOCK TABLES `riunionepartecipanti` WRITE;
-/*!40000 ALTER TABLE `riunionepartecipanti` DISABLE KEYS */;
-INSERT INTO `riunionepartecipanti` VALUES (3,1),(1,2),(2,2);
-/*!40000 ALTER TABLE `riunionepartecipanti` ENABLE KEYS */;
+LOCK TABLES `riunionepartecipante` WRITE;
+/*!40000 ALTER TABLE `riunionepartecipante` DISABLE KEYS */;
+INSERT INTO `riunionepartecipante` VALUES (3,1),(4,1),(1,2),(2,2);
+/*!40000 ALTER TABLE `riunionepartecipante` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-06 14:36:29
+-- Dump completed on 2020-04-07 16:15:14

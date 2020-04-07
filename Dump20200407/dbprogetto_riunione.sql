@@ -24,16 +24,17 @@ DROP TABLE IF EXISTS `riunione`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `riunione` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `data` date NOT NULL,
   `titolo` varchar(45) NOT NULL,
-  `ora` int(11) NOT NULL,
-  `durata` int(11) NOT NULL,
+  `anno` int(11) DEFAULT NULL,
+  `mese` int(11) NOT NULL,
+  `giorno` int(11) NOT NULL,
+  `ora` time NOT NULL,
   `maxPart` int(11) NOT NULL,
   `creatore` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_creatore` (`creatore`),
-  CONSTRAINT `id_creatore` FOREIGN KEY (`creatore`) REFERENCES `utente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `creatore` (`creatore`),
+  CONSTRAINT `riunione_ibfk_1` FOREIGN KEY (`creatore`) REFERENCES `utente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +43,7 @@ CREATE TABLE `riunione` (
 
 LOCK TABLES `riunione` WRITE;
 /*!40000 ALTER TABLE `riunione` DISABLE KEYS */;
-INSERT INTO `riunione` VALUES (1,'2020-04-10','Riunione1',21,1,5,1),(2,'2020-05-10','Riunione2',18,2,5,1),(3,'2020-05-03','Riunione3',18,2,5,2);
+INSERT INTO `riunione` VALUES (1,'Riunione1',2020,4,10,'00:00:21',4,1),(2,'Riunione2',2020,4,12,'00:00:10',4,1),(3,'Riunione3',2020,4,15,'00:00:10',4,2),(4,'Riunione4',2020,4,17,'00:00:18',4,2);
 /*!40000 ALTER TABLE `riunione` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-06 14:36:29
+-- Dump completed on 2020-04-07 16:15:13
