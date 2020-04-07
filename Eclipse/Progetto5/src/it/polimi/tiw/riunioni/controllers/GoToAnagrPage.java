@@ -54,7 +54,7 @@ public class GoToAnagrPage extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		
+		System.out.println("OK4");
 		String loginpath = getServletContext().getContextPath() + "/login.jsp";
 		HttpSession s = request.getSession();
 		if (s.isNew() || s.getAttribute("user") == null) {
@@ -67,12 +67,15 @@ public class GoToAnagrPage extends HttpServlet {
 		int idUtente = ((Utente) s.getAttribute("user")).getId();
 		
 		try {
+			
 			utenti= uDAO.utentiRegistrati(idUtente);
+			System.out.println("OK5");
 			request.setAttribute("utenti", utenti);
 			String path = "/WEB-INF/PaginaAnagrafica.jsp";
-			
 			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+			System.out.println("OK6");
 			dispatcher.forward(request, response);
+			
 			
 		} catch (SQLException e) {
 			response.sendError(500, "00Database access failed");
@@ -83,23 +86,30 @@ public class GoToAnagrPage extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("OK1");
 		HttpSession s = request.getSession();
 		int idUtente = ((Utente) s.getAttribute("user")).getId();
+		
+		
 		Riunione riunione = new Riunione();
-		try {
-			riunione.setTitolo(request.getParameter("titolo"));
-			riunione.setMese((int) request.getAttribute("mese"));
-			riunione.setGiorno((int) request.getAttribute("giorno"));
-			riunione.setOra((int) request.getAttribute("ora"));
-			riunione.setDurata((int) request.getAttribute("durata"));
-			riunione.setMaxPart(4);
-			riunione.setIdCreatore(idUtente);
-			request.setAttribute("RiunioneDaCreare", riunione);
-			doGet(request, response);
-		}catch(Exception e){
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing assignment data");
-			
-		}
+		int m=Integer.parseInt(request.getParameter("mese"));
+		int g=Integer.parseInt(request.getParameter("giorno"));
+		int o=Integer.parseInt(request.getParameter("ora"));
+		int d=Integer.parseInt(request.getParameter("durata"));
+		riunione.setTitolo(request.getParameter("titolo"));
+		riunione.setAnno(2020);
+		riunione.setMese(m);
+		riunione.setGiorno(g);
+		riunione.setOra(o);
+		riunione.setDurata(d);
+		riunione.setMaxPart(4);
+		riunione.setIdCreatore(idUtente);
+		System.out.println("OK2");
+		request.setAttribute("RiunioneDaCreare", riunione);
+		System.out.println("OK3");
+		doGet(request, response);
+		
+		
 		
 		
 	}

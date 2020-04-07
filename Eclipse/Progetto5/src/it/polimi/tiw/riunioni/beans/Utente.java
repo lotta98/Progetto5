@@ -7,6 +7,7 @@ public class Utente {
 	private String password;
 	private String nome;
 	private String cognome;
+	
 	public int getId() {
 		return id;
 	}

@@ -1,5 +1,6 @@
 package it.polimi.tiw.riunioni.controllers;
 import  javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 import it.polimi.tiw.riunioni.DAO.*;
 import it.polimi.tiw.riunioni.beans.*;
 
-
+@WebServlet("/CheckPartecipanti")
 public class CheckPartecipanti extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private Connection connection=null;
@@ -45,7 +46,7 @@ public class CheckPartecipanti extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		/*
 	
 		
 			HttpSession session = request.getSession();
@@ -58,12 +59,12 @@ public class CheckPartecipanti extends HttpServlet {
 			
 			
 		
-		if (/*numeroutenti*/ > ((Riunione) request.getAttribute("RiunioneDaCreare")).getMaxPart() && counter <=3) {
+		if (/*numeroutenti > ((Riunione) request.getAttribute("RiunioneDaCreare")).getMaxPart() && counter <=3) {
 			
 			String pathhome = getServletContext().getContextPath() + "/homepage.jsp";
 		response.sendRedirect(pathhome);
 		return ;
-		} else if (/*numeroutenti*/ > request.getAttribute(RiunioneDaCreare).getMaxPart() && counter >3) {
+		} else if (/*numeroutenti > request.getAttribute(RiunioneDaCreare).getMaxPart() && counter >3) {
 			String pathend = getServletContext().getContextPath() + "/PaginaCancellazione.jsp";
 			response.sendRedirect(pathend);
 			return;
@@ -74,7 +75,14 @@ public class CheckPartecipanti extends HttpServlet {
 			
 			
 			response.sendRedirect("/GotoAnagrPage");
-			return;
+			*/
+		}
+		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			String[] idS = request.getParameterValues("checkbox");
+			int[] id = null;
+			for(int i=0;i<idS.length;i++)
+				id[i]=Integer.parseInt(idS[i]);
+			
 		}
 		
 }

@@ -48,43 +48,25 @@ public class UtenteDAO {
 			}
 		}		
 		return user;
-	}/*
-	public Utente checkUser(String usrn, String pwd) throws SQLException {
-		String query = "SELECT * FROM utente  WHERE username = ? AND password =?";
-		try (PreparedStatement pstatement = con.prepareStatement(query);) {
-			pstatement.setString(1, usrn);
-			pstatement.setString(2, pwd);
-			try (ResultSet result = pstatement.executeQuery();) {
-				if (!result.isBeforeFirst()) // no results, credential check failed
-					return null;
-				else {
-					result.next();
-					Utente user = new Utente();
-					user.setId(result.getInt("id"));
-					user.setUser(result.getString("username"));
-					return user;
-				}
-			}
-		}
-	}*/
-	public List<Utente> findUtenti(int idUtente) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
+	
 	public List<Utente> utentiRegistrati(int idCreatore) throws SQLException {
-		List <Utente> utenti = new ArrayList<Utente>();	
-		String query = "SELECT * FROM utente WHERE idPartecipante <> idCreatore";
+		List<Utente> utenti = new ArrayList<Utente>();	
+		String query = "SELECT * FROM utente WHERE id <> ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 
 		try {
 			pstatement = con.prepareStatement(query);
+			pstatement.setInt(1, idCreatore);
 			result = pstatement.executeQuery();
 			while (result.next()) {
 				Utente ut = new Utente();
 				ut.setId(result.getInt("id"));
 				ut.setUser(result.getString("username"));
+				ut.setNome(result.getString("nome"));
+				ut.setCognome(result.getString("cognome"));
 				utenti.add(ut);
 			}
 		} catch (SQLException e) {

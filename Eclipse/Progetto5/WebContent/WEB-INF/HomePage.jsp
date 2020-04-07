@@ -18,7 +18,8 @@
 							<thead
 							><tr>
 							<th>Titolo</th>
-							<th>Data</th>
+							<th>Giorno</th>
+							<th>Mese</th>
 							<th>Ora</th>
 							</tr></thead>
 							<tbody>
@@ -32,7 +33,8 @@
 									</c:otherwise>
 								</c:choose>
 								<td><c:out value="${riunione.titolo}" /></td>
-								<td><c:out value="${riunione.data}" /></td>
+								<td><c:out value="${riunione.giorno}" /></td>
+								<td><c:out value="${riunione.mese}" /></td>
 								<td><c:out value="${riunione.ora}" /></td>
 								
 							</c:forEach>
@@ -50,7 +52,8 @@
 							<thead
 							><tr>
 							<th>Titolo</th>
-							<th>Data</th>
+							<th>Giorno</th>
+							<th>Mese</th>
 							<th>Ora</th>
 							</tr></thead>
 							<tbody>
@@ -64,7 +67,8 @@
 									</c:otherwise>
 								</c:choose>
 								<td><c:out value="${riunione.titolo}" /></td>
-								<td><c:out value="${riunione.data}" /></td>
+								<td><c:out value="${riunione.giorno}" /></td>
+								<td><c:out value="${riunione.mese}" /></td>
 								<td><c:out value="${riunione.ora}" /></td>
 								
 							</c:forEach>
@@ -78,13 +82,21 @@
 			<c:url value="/GoToAnagrPage" var="url"/>			
 			<form method="post" action="${url}">
     				<label for="titolo"><b>Titolo</b></label>
-    				<input type="text" placeholder="Inserisci Titolo" name="titolo" required/>
-    				<br>
-    				<label for="data">Data:</label>
-  					<input type="date" id="data" name="data">
-    				<label for="ora"><b>Ora</b></label>
-    				<input type="text" placeholder="Inserisci Titolo" name="ora" required/>
-    				<br>
+    				<div><input type="text" placeholder="Inserisci Titolo" name="titolo" required/></div>
+    				
+    				<label for="giorno">Giorno</label>
+  					<div><input type="text" placeholder="Inserisci Giorno" name="giorno" required></div>
+  					
+    				<label for="mese">Mese</label>
+  					<div><input type="text" placeholder="Inserisci Mese" name="mese" required></div>
+  					
+    				<label for="ora">Ora</label>
+    				<div><input type="text" placeholder="Inserisci Ora" name="ora" required/></div>
+    				
+    				<label for="durata">Durata</label>
+    				<div><input type="text" placeholder="Inserisci Durata" name="durata" required/></div>
+    				
+    				
     				<button type="submit">Crea Riunione</button>
   			</form>	
 	
