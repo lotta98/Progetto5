@@ -73,7 +73,9 @@ public class RiunioniPartecipanteDAO {
 					Riunione r1 = new Riunione();
 					r1.setId(result.getInt("id"));
 					r1.setTitolo(result.getString("titolo"));
-					r1.setData(result.getDate("data"));
+					r1.setGiorno(result.getInt("giorno"));
+					r1.setMese(result.getInt("mese"));
+					r1.setAnno(result.getInt("anno"));
 					r1.setOra(result.getInt("ora"));
 					r1.setDurata(result.getInt("durata"));
 					r1.setMaxPart(result.getInt("maxPart"));

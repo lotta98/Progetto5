@@ -40,7 +40,9 @@ public class RiunioniDAO {
 				riunione.setId(result.getInt("id"));
 				riunione.setTitolo(result.getString("titolo"));
 
-				riunione.setData(result.getDate("data"));
+				riunione.setGiorno(result.getInt("giorno"));
+				riunione.setMese(result.getInt("mese"));
+				riunione.setAnno(result.getInt("anno"));
 				riunione.setOra(result.getInt("ora"));
 				riunione.setDurata(result.getInt("durata"));
 				riunione.setMaxPart(result.getInt("maxPart"));
@@ -71,17 +73,19 @@ public class RiunioniDAO {
 	
 public void addRiunione(Riunione r) throws SQLException {
 		
-		String query = "INSERT into riunione (titolo, data, ora, durata, maxPart, idCreatore)   VALUES(?, ?, ?, ?, ?, ?)";
+		String query = "INSERT into riunione (titolo, giorno, mese, anno, ora, durata, maxPart, idCreatore)   VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		int code = 0;
 		PreparedStatement pstatement = null;
 		try {
 			pstatement = con.prepareStatement(query);
 			pstatement.setString(1, r.getTitolo());
-			pstatement.setObject(2, r.getData()); //
-			pstatement.setInt(3, r.getOra());
-			pstatement.setInt(4, r.getDurata());
-			pstatement.setInt(5, r.getMaxPart());
-			pstatement.setInt(6, r.getIdCreatore());
+			pstatement.setInt(2, r.getGiorno()); 
+			pstatement.setInt(3, r.getMese()); 
+			pstatement.setInt(4, r.getAnno()); 
+			pstatement.setInt(5, r.getOra());
+			pstatement.setInt(6, r.getDurata());
+			pstatement.setInt(7, r.getMaxPart());
+			pstatement.setInt(8, r.getIdCreatore());
 			
 			code = pstatement.executeUpdate();
 		} catch (SQLException e) {
