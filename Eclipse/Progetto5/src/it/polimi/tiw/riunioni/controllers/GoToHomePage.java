@@ -87,7 +87,8 @@ public class GoToHomePage extends HttpServlet {
 			
 			request.setAttribute("invitiRiunioni", invitiRiunioni);
 			String path = "/WEB-INF/HomePage.jsp";
-			
+			int cont=0;
+			request.getSession().setAttribute("cont", cont);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 			dispatcher.forward(request, response);
 			

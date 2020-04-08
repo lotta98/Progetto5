@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import javax.servlet.RequestDispatcher;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -74,17 +74,18 @@ public class CheckPartecipanti extends HttpServlet {
 			
 			
 			if(part>3) {
-				if((boolean) request.getAttribute("cont")) {
-					
-					int cont=(int) request.getAttribute("cont");
+					int cont=(int) request.getSession().getAttribute("cont");
 					if(cont==2) {
-						String pathend = getServletContext().getContextPath() + "/PaginaCancellazione.jsp";
-						response.sendRedirect(pathend);
+						String pathend ="/WEB-INF/PaginaCancellazione.html";
+						RequestDispatcher dispatcher = request.getRequestDispatcher(pathend);
+						dispatcher.forward(request, response);
 					}
-					request.setAttribute("cont", cont+1);
-					request.setAttribute("eccessivi", part-3);
-					response.sendRedirect("/GoToAnagrPage");
-				}
+					System.out.println("cont="+cont);
+					request.getSession().setAttribute("cont", cont+1);
+					request.getSession().setAttribute("eccessivi", part-3);
+					String path=getServletContext().getContextPath() + "/GoToAnagrPage";
+					response.sendRedirect(path);
+				
 					
 			}
 			else {
