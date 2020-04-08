@@ -29,7 +29,7 @@ CREATE TABLE `utente` (
   `nome` varchar(45) NOT NULL,
   `cognome` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `utente` (
 
 LOCK TABLES `utente` WRITE;
 /*!40000 ALTER TABLE `utente` DISABLE KEYS */;
-INSERT INTO `utente` VALUES (1,'emilio','delorenzis','Emilio','De Lorenzis'),(2,'utente','utente','utente','utente');
+INSERT INTO `utente` VALUES (1,'emilio','delorenzis','Emilio','De Lorenzis'),(2,'utente','utente','utente','utente'),(3,'utente1','utente1','NomeUtente1','CognomeUtente1'),(4,'utente2','utente2','NomeUtente2','CognomeUtente2'),(5,'utente3','utente3','NomeUtente3','CognomeUtente3'),(6,'utente4','utente4','NomeUtente4','CognomeUtente4');
 /*!40000 ALTER TABLE `utente` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-07 16:15:14
+-- Dump completed on 2020-04-08 15:31:13

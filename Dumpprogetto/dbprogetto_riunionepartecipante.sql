@@ -16,35 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `riunione`
+-- Table structure for table `riunionepartecipante`
 --
 
-DROP TABLE IF EXISTS `riunione`;
+DROP TABLE IF EXISTS `riunionepartecipante`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `riunione` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `titolo` varchar(45) NOT NULL,
-  `anno` int(11) DEFAULT NULL,
-  `mese` int(11) NOT NULL,
-  `giorno` int(11) NOT NULL,
-  `ora` time NOT NULL,
-  `maxPart` int(11) NOT NULL,
-  `creatore` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `creatore` (`creatore`),
-  CONSTRAINT `riunione_ibfk_1` FOREIGN KEY (`creatore`) REFERENCES `utente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `riunionepartecipante` (
+  `idRiunione` int(11) NOT NULL,
+  `idPart` int(11) NOT NULL,
+  PRIMARY KEY (`idRiunione`,`idPart`),
+  KEY `idPart` (`idPart`),
+  CONSTRAINT `riunionepartecipante_ibfk_1` FOREIGN KEY (`idRiunione`) REFERENCES `riunione` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `riunionepartecipante_ibfk_2` FOREIGN KEY (`idPart`) REFERENCES `utente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `riunione`
+-- Dumping data for table `riunionepartecipante`
 --
 
-LOCK TABLES `riunione` WRITE;
-/*!40000 ALTER TABLE `riunione` DISABLE KEYS */;
-INSERT INTO `riunione` VALUES (1,'Riunione1',2020,4,10,'00:00:21',4,1),(2,'Riunione2',2020,4,12,'00:00:10',4,1),(3,'Riunione3',2020,4,15,'00:00:10',4,2),(4,'Riunione4',2020,4,17,'00:00:18',4,2);
-/*!40000 ALTER TABLE `riunione` ENABLE KEYS */;
+LOCK TABLES `riunionepartecipante` WRITE;
+/*!40000 ALTER TABLE `riunionepartecipante` DISABLE KEYS */;
+INSERT INTO `riunionepartecipante` VALUES (3,1),(4,1),(15,1),(17,1),(1,2),(2,2),(15,4),(16,4),(16,5),(17,5);
+/*!40000 ALTER TABLE `riunionepartecipante` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-07 16:15:13
+-- Dump completed on 2020-04-08 15:31:13
