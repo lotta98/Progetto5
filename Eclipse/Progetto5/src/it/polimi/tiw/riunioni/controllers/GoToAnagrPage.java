@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.GregorianCalendar;
 
 import it.polimi.tiw.riunioni.DAO.RiunioniDAO;
 import it.polimi.tiw.riunioni.DAO.UtenteDAO;
@@ -87,6 +88,8 @@ public class GoToAnagrPage extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String path = getServletContext().getContextPath() + "/GoToHomePage";
+		GregorianCalendar calendar = new GregorianCalendar();
 		System.out.println("OK1");
 		HttpSession s = request.getSession();
 		int idUtente = ((Utente) s.getAttribute("user")).getId();
@@ -105,6 +108,15 @@ public class GoToAnagrPage extends HttpServlet {
 		int g=Integer.parseInt(request.getParameter("giorno"));
 		int o=Integer.parseInt(request.getParameter("ora"));
 		int d=Integer.parseInt(request.getParameter("durata"));
+		
+		if (m < calendar.get(calendar.MONTH)) {		
+			response.sendRedirect(path);			
+		} else {
+			if (m == calendar.get(calendar.MONTH) && g < calendar.get(calendar.DATE)) {
+				response.sendRedirect(path);
+			}
+		}
+		
 		riunione.setId(ultimoId+1);
 		riunione.setTitolo(request.getParameter("titolo"));
 		riunione.setAnno(2020);
