@@ -3,6 +3,8 @@ package it.polimi.tiw.riunioni.DAO;
 
 
 import it.polimi.tiw.riunioni.beans.*;
+import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,13 +28,19 @@ public class RiunioniDAO {
 	public List<Riunione> findRiunioniCreate(int idUtente) throws SQLException {
 
 		List<Riunione> riunioniCreate = new ArrayList<Riunione>();
-		String query = "SELECT * FROM riunione WHERE creatore = ?";
+		GregorianCalendar calendar = new GregorianCalendar();
+		int m = calendar.get(Calendar.MONTH) + 1;
+		int g = calendar.get(Calendar.DATE);
+		
+		String query = "SELECT * FROM riunione WHERE creatore = ? AND mese >= ? AND giorno >= ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 		
 		try {
 			pstatement = con.prepareStatement(query);
 			pstatement.setInt(1, idUtente);
+			pstatement.setInt(2, m);
+			pstatement.setInt(3, g);
 			result = pstatement.executeQuery();
 			while (result.next()) {
 				Riunione riunione = new Riunione();
