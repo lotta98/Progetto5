@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import it.polimi.tiw.riunioni.DAO.RiunioniDAO;
@@ -103,22 +105,32 @@ public class GoToAnagrPage extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("ultimo id="+ultimoId);
-		int m=Integer.parseInt(request.getParameter("mese"));
-		int g=Integer.parseInt(request.getParameter("giorno"));
-		int o=Integer.parseInt(request.getParameter("ora"));
-		int d=Integer.parseInt(request.getParameter("durata"));
+		String t = null;
+		int m = 0,g = 0,o = 0,d =0;
+		try {
+			t=request.getParameter("titolo");
+			m=Integer.parseInt(request.getParameter("mese"));
+			g=Integer.parseInt(request.getParameter("giorno"));
+			o=Integer.parseInt(request.getParameter("ora"));
+			d=Integer.parseInt(request.getParameter("durata"));
+					
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		if (m < calendar.get(calendar.MONTH)) {		
-			response.sendRedirect(path);			
+		if (m < calendar.get(Calendar.MONTH)+1) {		
+			response.sendRedirect(path);	
+			return;
 		} else {
-			if (m == calendar.get(calendar.MONTH) && g < calendar.get(calendar.DATE)) {
+			if (m == calendar.get(Calendar.MONTH)+1 && g < calendar.get(Calendar.DAY_OF_MONTH)) {
 				response.sendRedirect(path);
+				return;
 			}
 		}
 		
 		riunione.setId(ultimoId+1);
-		riunione.setTitolo(request.getParameter("titolo"));
+		riunione.setTitolo(t);
 		riunione.setAnno(2020);
 		riunione.setMese(m);
 		riunione.setGiorno(g);

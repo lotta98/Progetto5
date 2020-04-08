@@ -1,7 +1,7 @@
 package it.polimi.tiw.riunioni.DAO;
 
 import it.polimi.tiw.riunioni.beans.RiunionePartecipanti;
-import java.util.GregorianCalendar;
+
 
 
 import java.sql.Connection;
@@ -24,18 +24,15 @@ public class RiunioniPartecipanteDAO {
 	public List<RiunionePartecipanti> findRiunioniPartByUser(int idUtente) throws SQLException {
 		
 		List<RiunionePartecipanti> riunioni = new ArrayList<RiunionePartecipanti>();
-		GregorianCalendar calendar = new GregorianCalendar();
-		int m = calendar.get(calendar.MONTH) + 1;
-		int g = calendar.get(calendar.DATE);
-		String query = "SELECT * FROM riunionepartecipante WHERE idPart = ? AND mese >= ? AND giorno >= ?";
+	
+		String query = "SELECT * FROM riunionepartecipante WHERE idPart = ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 		try {
 			
 			pstatement = con.prepareStatement(query);
 			pstatement.setInt(1, idUtente);
-			pstatement.setInt(2, m);
-			pstatement.setInt(3, g);
+			
 			result = pstatement.executeQuery();
 			while (result.next()) {
 				RiunionePartecipanti riunione = new RiunionePartecipanti();

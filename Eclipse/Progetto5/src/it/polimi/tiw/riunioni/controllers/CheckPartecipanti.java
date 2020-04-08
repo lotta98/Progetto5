@@ -60,25 +60,29 @@ public class CheckPartecipanti extends HttpServlet {
 				throws ServletException, IOException {
 			String[] idS = request.getParameterValues("checkbox");
 			int part=idS.length;
+			if(part==0) {
+				String path=getServletContext().getContextPath() + "/GoToAnagrPage";
+				response.sendRedirect(path);
+				return;
+			}
 			int idPart[]=new int[part];
-			request.setAttribute("Selezionati", idS);
+			
 		
 			
 			for(int i=0;i<idS.length;i++) {
-				System.out.println(idS[i]);
-				System.out.println(Integer.parseInt(idS[i]));
 				idPart[i]=Integer.parseInt(idS[i]);
 				
 			}
-			
+			request.getSession().setAttribute("selezionati", idPart);
 			
 			
 			if(part>3) {
 					int cont=(int) request.getSession().getAttribute("cont");
 					if(cont==2) {
-						String pathend ="/WEB-INF/PaginaCancellazione.html";
+						String pathend ="/WEB-INF/PaginaCancellazione.jsp";
 						RequestDispatcher dispatcher = request.getRequestDispatcher(pathend);
 						dispatcher.forward(request, response);
+						return;
 					}
 					System.out.println("cont="+cont);
 					request.getSession().setAttribute("cont", cont+1);
@@ -89,16 +93,16 @@ public class CheckPartecipanti extends HttpServlet {
 					
 			}
 			else {
-				System.out.println("OKCP1");
+				
 				RiunioniDAO rDAO=new RiunioniDAO(connection);
 				RiunioniPartecipanteDAO rpDAO=new RiunioniPartecipanteDAO(connection);
 				try {
-					System.out.println("OKCP2");
+					
 					Riunione r=(Riunione) request.getSession().getAttribute("RiunioneDaCreare");
 					rDAO.addRiunione(r);
-					System.out.println("OKCP3"+ r.getId());
+					
 					rpDAO.addRiunionePartecipante(r.getId(), idPart);
-					System.out.println("OKCP4");
+					
 					String path=getServletContext().getContextPath() + "/GoToHomePage";
 					response.sendRedirect(path);
 					

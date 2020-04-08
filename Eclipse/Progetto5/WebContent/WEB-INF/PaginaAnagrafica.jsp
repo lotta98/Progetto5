@@ -12,17 +12,21 @@
 <h2>Invita Utenti</h2>
 	<c:choose>
 	<c:when test="${utenti.size()>0}">
+	
 	<c:url value="/CheckPartecipanti" var="url"/>
 		<form method="post" action="${url}" >
+				<c:forEach var="utente" items="${utenti}" >
+						
+							<input type ="checkbox" value = "${utente.getId()}" name="checkbox" checked></input>
+							<c:out value="${utente.getNome()}" />
+							<c:out value="${utente.getCognome()}" />
+							<c:set var="i" value="i+1"></c:set>
+							<br>
+						
+						
+				</c:forEach>
 			
-			<c:forEach var="utente" items="${utenti}" >
-				<input type ="checkbox" value = "${utente.getId()}" name="checkbox" ></input>
-				<c:out value="${utente.getNome()}" />
-				<c:out value="${utente.getCognome()}" />
-				<br>
-				
-			</c:forEach>
-			 <input type="submit" name="submit" value="Invita" />
+			<input type="submit" name="submit" value="Invita" />
 							
 			
 			

@@ -30,9 +30,9 @@ public class RiunioniDAO {
 		List<Riunione> riunioniCreate = new ArrayList<Riunione>();
 		GregorianCalendar calendar = new GregorianCalendar();
 		int m = calendar.get(Calendar.MONTH) + 1;
-		int g = calendar.get(Calendar.DATE);
+		int g = calendar.get(Calendar.DAY_OF_MONTH);
 		
-		String query = "SELECT * FROM riunione WHERE creatore = ? AND mese >= ? AND giorno >= ?";
+		String query = "SELECT * FROM riunione WHERE creatore = ? AND ((mese > ?) OR ((mese >= ?) AND (giorno >= ?)))";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 		
@@ -40,7 +40,8 @@ public class RiunioniDAO {
 			pstatement = con.prepareStatement(query);
 			pstatement.setInt(1, idUtente);
 			pstatement.setInt(2, m);
-			pstatement.setInt(3, g);
+			pstatement.setInt(3, m);
+			pstatement.setInt(4, g);
 			result = pstatement.executeQuery();
 			while (result.next()) {
 				Riunione riunione = new Riunione();
@@ -79,7 +80,10 @@ public class RiunioniDAO {
 	}
 	public List<Riunione> findRiunioniByUser(List<RiunionePartecipanti> r) throws SQLException {
 		List<Riunione> invitiRiunioni= new ArrayList<Riunione>();
-		String query = "SELECT * FROM riunione WHERE id = ?";
+		GregorianCalendar calendar = new GregorianCalendar();
+		int m = calendar.get(Calendar.MONTH) + 1;
+		int g = calendar.get(Calendar.DAY_OF_MONTH);
+		String query = "SELECT * FROM riunione WHERE id = ? AND ((mese > ?) OR ((mese >= ?) AND (giorno >= ?)))";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 		for(int j=0;j<r.size();j++) {
@@ -89,7 +93,9 @@ public class RiunioniDAO {
 				pstatement = con.prepareStatement(query);
 				
 				pstatement.setInt(1, r.get(j).getIdRiunione());
-				
+				pstatement.setInt(2, m);
+				pstatement.setInt(3, m);
+				pstatement.setInt(4, g);
 				result = pstatement.executeQuery();
 			
 				
