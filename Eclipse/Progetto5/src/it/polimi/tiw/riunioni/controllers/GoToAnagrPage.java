@@ -159,6 +159,12 @@ public class GoToAnagrPage extends HttpServlet {
 			response.sendRedirect(path);
 			return;
 		}
+		
+		if (d <= 0) {                                       // evitare durata negativa o nulla
+			request.getSession().setAttribute("err", 1);
+			response.sendRedirect(path);
+			return;
+		} 
 
 
 		riunione.setId(ultimoId+1);
