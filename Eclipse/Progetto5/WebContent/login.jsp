@@ -9,7 +9,7 @@
 <title> Progetto 5</title>
 </head>
 <body>
-	<jsp:include page="WEB-INF/header.jsp" />
+	
 	<h1>Welcome to Login</h1>
 	<c:choose>
 		<c:when test="${empty currentUser}">
@@ -26,5 +26,7 @@
 				
 		
 	</c:choose>
+	<p>Non hai un account?<a href="/Progetto5/Registrazione.jsp">Registrati</a></p>
+	
 </body>
 </html>

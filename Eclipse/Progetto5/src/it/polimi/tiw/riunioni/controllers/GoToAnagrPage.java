@@ -60,12 +60,9 @@ public class GoToAnagrPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 
-		String loginpath = getServletContext().getContextPath() + "/login.jsp";
+		
 		HttpSession s = request.getSession();
-		if (s.isNew() || s.getAttribute("user") == null) {
-			response.sendRedirect(loginpath);
-			return;
-		} 
+		
 
 		UtenteDAO uDAO = new UtenteDAO(connection);
 		List<Utente> utenti;

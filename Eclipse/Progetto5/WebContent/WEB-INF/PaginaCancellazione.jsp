@@ -9,7 +9,9 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
+<h1>Pagina di Cancellazione</h1>
 <br><br>
+
 <p>Tre tentativi di definire una riunione con troppi partecipanti, la riunione non sarà creata</p>
 <BR>
 <p><a href="<c:url value="/GoToHomePage"/>">Go To Home Page</a></p>

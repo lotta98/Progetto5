@@ -4,7 +4,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import java.util.List;
 
@@ -49,12 +49,6 @@ public class CheckPartecipanti extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String loginpath = getServletContext().getContextPath() + "/login.jsp";
-		HttpSession s = request.getSession();
-		if (s.isNew() || s.getAttribute("user") == null) {
-			response.sendRedirect(loginpath);
-			return;
-		} 
 		doPost(request,response);
 
 }
@@ -91,7 +85,7 @@ public class CheckPartecipanti extends HttpServlet {
 						dispatcher.forward(request, response);
 						return;
 					}
-					System.out.println("cont="+cont);
+					
 					request.getSession().setAttribute("cont", cont+1);
 					request.getSession().setAttribute("eccessivi", part-3);
 					String path=getServletContext().getContextPath() + "/GoToAnagrPage";
