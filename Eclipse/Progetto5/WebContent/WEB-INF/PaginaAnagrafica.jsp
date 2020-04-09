@@ -55,6 +55,8 @@
 	<c:otherwise>Non ci sono Utenti</c:otherwise>
 			
 	</c:choose>
-	<c:if test= "${cont != 0}"> Troppi utenti selezionati, eliminane almeno <c:out value="${eccessivi}" /></ </c:if>
+	<BR>
+		
+	<c:if test= "${cont != 0}"> <font color="FF0000"> <h2>Troppi utenti selezionati, eliminane almeno  <c:out value="${eccessivi}" /> </h2> </font> </ </c:if>
 </body>
 </html>
