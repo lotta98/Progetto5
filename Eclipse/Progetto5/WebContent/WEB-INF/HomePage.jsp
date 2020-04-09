@@ -78,7 +78,9 @@
 		<c:otherwise>No topics to display.
 		</c:otherwise>
 	</c:choose>
+
 	<p>Inserisci i dati per creare una nuova Riunione</p>
+	<c:if test="${err!=0}"><font color="red"> Errore inserimento dati</font> </c:if>
 			<c:url value="/GoToAnagrPage" var="url"/>			
 			<form method="post" action="${url}">
     				<label for="titolo"><b>Titolo</b></label>

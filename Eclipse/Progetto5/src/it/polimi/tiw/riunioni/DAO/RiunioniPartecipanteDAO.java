@@ -1,8 +1,7 @@
 package it.polimi.tiw.riunioni.DAO;
 
 import it.polimi.tiw.riunioni.beans.RiunionePartecipanti;
-
-
+import it.polimi.tiw.riunioni.beans.Utente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -59,16 +58,16 @@ public class RiunioniPartecipanteDAO {
 	}
 
 	
-	public void addRiunionePartecipante(int id, int idU[]) throws SQLException {
+	public void addRiunionePartecipante(int id, List<Utente> u) throws SQLException {
 		String query = "INSERT INTO riunionepartecipante (idRiunione, idPart) VALUES(?, ?)";
 		System.out.println(id);
 		
 		PreparedStatement pstatement = null;
-		for(int j=0;j<idU.length;j++) {
+		for(int j=0;j<u.size();j++) {
 			try {
 					pstatement = con.prepareStatement(query);
 					pstatement.setInt(1, id);
-					pstatement.setInt(2, idU[j]);
+					pstatement.setInt(2, u.get(j).getId());
 					pstatement.executeUpdate();
 				
 			} catch (SQLException e) {

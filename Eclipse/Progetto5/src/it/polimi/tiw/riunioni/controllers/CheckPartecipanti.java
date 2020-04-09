@@ -5,11 +5,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import it.polimi.tiw.riunioni.DAO.*;
 import it.polimi.tiw.riunioni.beans.*;
@@ -54,7 +58,7 @@ public class CheckPartecipanti extends HttpServlet {
 		} 
 		doPost(request,response);
 
-		}
+}
 		
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 				throws ServletException, IOException {
@@ -65,15 +69,18 @@ public class CheckPartecipanti extends HttpServlet {
 				response.sendRedirect(path);
 				return;
 			}
-			int idPart[]=new int[part];
-			
+			int idPart;
+			List<Utente> utentiSelezionati=new ArrayList<Utente>();
 		
 			
 			for(int i=0;i<idS.length;i++) {
-				idPart[i]=Integer.parseInt(idS[i]);
-				
+				Utente u=new Utente();
+				idPart=Integer.parseInt(idS[i]);
+				u.setId(idPart);
+				utentiSelezionati.add(u);
 			}
-			request.getSession().setAttribute("selezionati", idPart);
+			
+			request.getSession().setAttribute("select", utentiSelezionati);
 			
 			
 			if(part>3) {
@@ -101,7 +108,7 @@ public class CheckPartecipanti extends HttpServlet {
 					Riunione r=(Riunione) request.getSession().getAttribute("RiunioneDaCreare");
 					rDAO.addRiunione(r);
 					
-					rpDAO.addRiunionePartecipante(r.getId(), idPart);
+					rpDAO.addRiunionePartecipante(r.getId(), utentiSelezionati);
 					
 					String path=getServletContext().getContextPath() + "/GoToHomePage";
 					response.sendRedirect(path);

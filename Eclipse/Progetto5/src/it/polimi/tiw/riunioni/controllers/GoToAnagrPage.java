@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -68,14 +69,19 @@ public class GoToAnagrPage extends HttpServlet {
 		
 		UtenteDAO uDAO = new UtenteDAO(connection);
 		List<Utente> utenti;
+		List<Utente> sel=new ArrayList<Utente>();
 		int idUtente = ((Utente) s.getAttribute("user")).getId();
 		
 		try {
 			
+			if((int) request.getSession().getAttribute("cont")==0)
+				request.setAttribute("select", sel);
 			utenti= uDAO.utentiRegistrati(idUtente);
 			
 			request.setAttribute("utenti", utenti);
+			
 			String path = "/WEB-INF/PaginaAnagrafica.jsp";
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 			
 			dispatcher.forward(request, response);
@@ -92,7 +98,7 @@ public class GoToAnagrPage extends HttpServlet {
 		// TODO Auto-generated method stub
 		String path = getServletContext().getContextPath() + "/GoToHomePage";
 		GregorianCalendar calendar = new GregorianCalendar();
-		System.out.println("OK1");
+		request.getSession().setAttribute("err", 0);
 		HttpSession s = request.getSession();
 		int idUtente = ((Utente) s.getAttribute("user")).getId();
 		int ultimoId = 0;
@@ -119,11 +125,13 @@ public class GoToAnagrPage extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if (m < calendar.get(Calendar.MONTH)+1) {		
+		if (m < calendar.get(Calendar.MONTH)+1) {	
+			request.getSession().setAttribute("err", 1);
 			response.sendRedirect(path);	
 			return;
 		} else {
 			if (m == calendar.get(Calendar.MONTH)+1 && g < calendar.get(Calendar.DAY_OF_MONTH)) {
+				request.getSession().setAttribute("err", 1);
 				response.sendRedirect(path);
 				return;
 			}

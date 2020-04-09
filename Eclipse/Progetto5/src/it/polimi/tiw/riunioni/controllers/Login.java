@@ -56,6 +56,7 @@ public class Login extends HttpServlet{
 			path = getServletContext().getContextPath() + "/login.jsp";
 		} else {
 			request.getSession().setAttribute("user", u);
+			request.getSession().setAttribute("err", 0);
 			String target ="/GoToHomePage";
 			path = path + target;
 		}
