@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.polimi.tiw.riunioni.beans.Riunione;
 import it.polimi.tiw.riunioni.beans.Utente;
 
 public class UtenteDAO {
@@ -20,7 +21,7 @@ public class UtenteDAO {
 		String query = "SELECT * FROM utente WHERE username = ? and password = ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
-		
+
 		try {
 			pstatement = con.prepareStatement(query);
 			pstatement.setString(1, username);
@@ -32,7 +33,7 @@ public class UtenteDAO {
 				user.setUser(result.getString("username"));
 			}
 		} catch (SQLException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 			throw new SQLException(e);
 
 		} finally {
@@ -49,8 +50,8 @@ public class UtenteDAO {
 		}		
 		return user;
 	}
-	
-	
+
+
 	public List<Utente> utentiRegistrati(int idCreatore) throws SQLException {
 		List<Utente> utenti = new ArrayList<Utente>();	
 		String query = "SELECT * FROM utente WHERE id <> ?";
@@ -87,5 +88,30 @@ public class UtenteDAO {
 		}		
 		return utenti;
 	}
-	
+
+	public void addUtente(Utente u) throws SQLException {
+
+		String query = "INSERT into utente (username, password, nome, cognome)   VALUES(?, ?, ?, ?)";
+
+		PreparedStatement pstatement = null;
+		try {
+			pstatement = con.prepareStatement(query); 
+			pstatement.setString(1, u.getUser());
+			pstatement.setString(2, u.getPassword()); 
+			pstatement.setString(3, u.getNome()); 
+			pstatement.setString(4, u.getCognome()); 
+			pstatement.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new SQLException(e);
+		} finally {
+			try {
+				pstatement.close();
+			} catch (Exception e1) {
+
+			}
+		}
+	}
+
+
 }
