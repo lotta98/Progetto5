@@ -39,7 +39,6 @@ public class CheckPartecipanti extends HttpServlet {
 			Class.forName(driver);
 			connection = DriverManager.getConnection(url, user, password);
 			
-
 		} catch (ClassNotFoundException e) {
 			throw new UnavailableException("Can't load database driver");
 		} catch (SQLException e) {
@@ -62,13 +61,14 @@ public class CheckPartecipanti extends HttpServlet {
 		
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 				throws ServletException, IOException {
-			String[] idS = request.getParameterValues("checkbox");
-			int part=idS.length;
-			if(part==0) {
+			if(request.getParameterValues("checkbox")==null) {
 				String path=getServletContext().getContextPath() + "/GoToAnagrPage";
 				response.sendRedirect(path);
 				return;
 			}
+			String[] idS = request.getParameterValues("checkbox");
+			int part=idS.length;
+			
 			int idPart;
 			List<Utente> utentiSelezionati=new ArrayList<Utente>();
 		
