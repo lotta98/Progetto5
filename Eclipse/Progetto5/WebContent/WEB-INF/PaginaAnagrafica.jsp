@@ -36,5 +36,8 @@
 			
 	</c:choose>
 	
+	<c:if test= "${cont != 0}"> Troppi utenti selezionati, eliminane almeno <c:out value="${eccessivi}" /></ </c:if>
+	
+	
 </body>
 </html>
