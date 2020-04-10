@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.polimi.tiw.riunioni.beans.Riunione;
+
 import it.polimi.tiw.riunioni.beans.Utente;
 
 public class UtenteDAO {
@@ -50,6 +50,39 @@ public class UtenteDAO {
 		}		
 		return user;
 	}
+	public Utente checkNuovoUser(String username) throws SQLException {
+		Utente user = null;
+		String query = "SELECT * FROM utente WHERE username = ?";
+		ResultSet result = null;
+		PreparedStatement pstatement = null;
+
+		try {
+			pstatement = con.prepareStatement(query);
+			pstatement.setString(1, username);
+			result = pstatement.executeQuery();
+			while (result.next()) {
+				user = new Utente();
+				user.setUser(result.getString("username"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException(e);
+
+		} finally {
+			try {
+				result.close();
+			} catch (Exception e1) {
+				throw new SQLException(e1);
+			}
+			try {
+				pstatement.close();
+			} catch (Exception e2) {
+				throw new SQLException(e2);
+			}
+		}		
+		return user;
+	}
+	
 
 
 	public List<Utente> utentiRegistrati(int idCreatore) throws SQLException {
