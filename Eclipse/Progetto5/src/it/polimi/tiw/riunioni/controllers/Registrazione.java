@@ -49,8 +49,20 @@ public class Registrazione extends HttpServlet{
 		String cognome = request.getParameter("cognome");
 		UtenteDAO usr = new UtenteDAO(connection);
 		Utente u = new Utente();
-		String path = getServletContext().getContextPath();
 		
+		String path = getServletContext().getContextPath();
+		try {
+			if(usr.checkNuovoUser(usrn).getUser()!=null) {
+				String patherror = getServletContext().getContextPath() + "/Registrazione.jsp";
+				response.sendRedirect(patherror);
+				return;
+			}
+				
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (pwd.equals(pwdconf)) {
 			
 			u.setUser(usrn);
@@ -61,7 +73,7 @@ public class Registrazione extends HttpServlet{
 				usr.addUtente(u);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
 			}
 			path = getServletContext().getContextPath() + "/login.jsp";
 			response.sendRedirect(path);
