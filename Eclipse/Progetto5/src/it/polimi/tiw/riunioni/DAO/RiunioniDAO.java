@@ -78,6 +78,7 @@ public class RiunioniDAO {
 		}
 		return riunioniCreate; 
 	}
+	
 	public List<Riunione> findRiunioniByUser(List<RiunionePartecipanti> r) throws SQLException {
 		List<Riunione> invitiRiunioni= new ArrayList<Riunione>();
 		GregorianCalendar calendar = new GregorianCalendar();

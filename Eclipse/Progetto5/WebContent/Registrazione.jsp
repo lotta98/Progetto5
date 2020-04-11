@@ -12,7 +12,9 @@
 	<c:choose>
 			<c:when test="${empty currentUser}">
 				<p>Inserisci i dati nella form</p>
-				<c:url value="/Registrazione" var="regUrl"/>			
+				<c:url value="/Registrazione" var="regUrl"/>	
+				<c:if test= "${pwddiff == 1}"> <font color="FF0000">Le password non corrispondono</font></c:if>	
+				<c:if test= "${nuovouser == 1}"> <font color="FF0000">Username già utilizzato</font></c:if>	
 				<form method="post" action="${regUrl}">
 	    				<label for="username"><b>Username</b></label><br>
 	    				<input type="text" placeholder="Username" name="username" required/>

@@ -52,12 +52,13 @@ public class Registrazione extends HttpServlet{
 		
 		String path = getServletContext().getContextPath();
 		try {
+			
 			if(usr.checkNuovoUser(usrn).getUser()!=null) {
 				String patherror = getServletContext().getContextPath() + "/Registrazione.jsp";
 				response.sendRedirect(patherror);
 				return;
 			}
-				
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -70,7 +71,9 @@ public class Registrazione extends HttpServlet{
 			u.setNome(nome);
 			u.setCognome(cognome);
 			try {
+				
 				usr.addUtente(u);
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				
@@ -80,8 +83,10 @@ public class Registrazione extends HttpServlet{
 			
 		} 
 		else {
+		 
 		 String patherror = getServletContext().getContextPath() + "/Registrazione.jsp";
-		response.sendRedirect(patherror);
+		 response.sendRedirect(patherror);
+		 return;
 		
 	}
 	

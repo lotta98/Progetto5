@@ -28,7 +28,7 @@ public class RiunioniPartecipanteDAO {
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 		try {
-			
+			System.out.println("OK4");
 			pstatement = con.prepareStatement(query);
 			pstatement.setInt(1, idUtente);
 			
@@ -54,6 +54,7 @@ public class RiunioniPartecipanteDAO {
 				throw new SQLException("Cannot close statement");
 			}
 		}
+		
 		return riunioni;
 	}
 

@@ -51,7 +51,7 @@ public class UtenteDAO {
 		return user;
 	}
 	public Utente checkNuovoUser(String username) throws SQLException {
-		Utente user = null;
+		Utente user = new Utente();
 		String query = "SELECT * FROM utente WHERE username = ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;

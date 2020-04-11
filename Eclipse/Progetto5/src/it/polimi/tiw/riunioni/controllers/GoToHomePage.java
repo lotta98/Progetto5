@@ -77,6 +77,7 @@ public class GoToHomePage extends HttpServlet {
 		List<RiunionePartecipanti> rp = new ArrayList<RiunionePartecipanti>();
 		List<Riunione> invitiRiunioni = new ArrayList<Riunione>();
 		try {
+			
 			rp= rpDAO.findRiunioniPartByUser(idUtente);
 			
 			invitiRiunioni= rDAO.findRiunioniByUser(rp);
