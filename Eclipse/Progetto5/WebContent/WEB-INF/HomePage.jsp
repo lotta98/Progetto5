@@ -85,17 +85,17 @@
 			<form method="post" action="${url}">
     				<label for="titolo"><b>Titolo</b></label>
     				<div><input type="text" placeholder="Inserisci Titolo" name="titolo" required/></div>
-    				
+    					<p>Formato data : gg-mm</p>    				
     				<label for="giorno">Giorno</label>
   					<div><input type="text" placeholder="Inserisci Giorno" name="giorno" required></div>
   					
     				<label for="mese">Mese</label>
   					<div><input type="text" placeholder="Inserisci Mese" name="mese" required></div>
   					
-    				<label for="ora">Ora</label>
+    				<label for="ora">Ora (0-23)</label>
     				<div><input type="text" placeholder="Inserisci Ora" name="ora" required/></div>
     				
-    				<label for="durata">Durata</label>
+    				<label for="durata">Durata (in ore)</label>
     				<div><input type="text" placeholder="Inserisci Durata" name="durata" required/></div>
     				
     				
