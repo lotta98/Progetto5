@@ -28,7 +28,7 @@ public class RiunioniPartecipanteDAO {
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 		try {
-			System.out.println("OK4");
+			
 			pstatement = con.prepareStatement(query);
 			pstatement.setInt(1, idUtente);
 			
@@ -61,7 +61,7 @@ public class RiunioniPartecipanteDAO {
 	
 	public void addRiunionePartecipante(int id, List<Utente> u) throws SQLException {
 		String query = "INSERT INTO riunionepartecipante (idRiunione, idPart) VALUES(?, ?)";
-		System.out.println(id);
+		
 		
 		PreparedStatement pstatement = null;
 		for(int j=0;j<u.size();j++) {
